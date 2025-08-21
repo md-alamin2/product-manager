@@ -57,8 +57,8 @@ export function Navbar() {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <nav className="flex flex-col gap-4">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] px-2">
+                <nav className="flex flex-col gap-4 mt-2">
                   <Link
                     href="/"
                     className="flex items-center space-x-2 mb-4"
@@ -72,7 +72,7 @@ export function Navbar() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="text-sm font-medium transition-colors hover:text-primary py-2"
+                      className="text-sm font-medium transition-colors hover:text-primary"
                       onClick={() => setIsOpen(false)}
                     >
                       {item.name}
@@ -80,7 +80,7 @@ export function Navbar() {
                   ))}
                   
                   <div className="flex flex-col gap-2 pt-4 border-t">
-                    <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
+                    <Button variant="outline" size="sm" onClick={() => setIsOpen(false)}>
                       Login
                     </Button>
                     <Button size="sm" onClick={() => setIsOpen(false)}>

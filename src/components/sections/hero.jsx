@@ -23,11 +23,6 @@ export function Hero() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="mx-auto max-w-4xl text-center">
-          {/* Badge */}
-          <Badge variant="secondary" className="mb-6 text-sm">
-            🎉 New products added weekly
-          </Badge>
-
           {/* Main headline */}
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
             Discover Amazing
