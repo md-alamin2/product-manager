@@ -3,8 +3,9 @@
 import ProductsClient from './components/ProductsClient';
 
 export const data = async () => {
+  let loading = true;
   const res = await fetch("http://localhost:3000/api/products", {
-    cache: 'no-store' // or 'force-cache' depending on your needs
+    cache: 'force-cache'
   });
   
   if (!res.ok) {
@@ -12,21 +13,22 @@ export const data = async () => {
   }
   
   const products = await res.json();
-  return products;
+  loading = false;
+  return {products, loading};
 };
 
 export const getFeaturedProducts = async () => {
-  const products = await data();
+  const {products} = await data();
   return products.filter((p) => p.featured);
 };
 
 export const getProductById = async (id) => {
-  const products = await data();
+  const {products} = await data();
   return products.find((p) => {p._id == id});
 };
 
 export default async function ProductsPage() {
-  const products = await data();
+  const {products, loading} = await data();
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,7 +48,7 @@ export default async function ProductsPage() {
       </div>
 
       {/* Client Component for Interactive Features */}
-      <ProductsClient products={products} />
+      <ProductsClient products={products} isLoading={loading} />
     </div>
   );
 }

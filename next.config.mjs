@@ -3,7 +3,23 @@ const nextConfig = {
   reactStrictMode: true,
   distDir: "build",
   images: {
-    domains: ["images.unsplash.com",  "cdn.pixabay.com", "images.pexel.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com", // fixed spelling (pexels, not pexel)
+        pathname: "/**",
+      },
+    ],
   },
 };
 

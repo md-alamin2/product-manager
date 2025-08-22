@@ -1,5 +1,3 @@
-// app/products/ProductsClient.js (Client Component)
-
 "use client";
 
 import { useState, useMemo } from "react";
@@ -21,12 +19,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search, Star } from "lucide-react";
+import { Search, Star, RefreshCw } from "lucide-react";
+import { ProductsLoading } from "@/components/ui/loading";
 
-export default function ProductsClient({ products }) {
+export default function ProductsClient({ products, isLoading }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("name");
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -69,6 +69,27 @@ export default function ProductsClient({ products }) {
     setSelectedCategory("all");
     setSortBy("name");
   };
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    // Simulate refresh - in real app, you'd refetch data
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setIsRefreshing(false);
+    window.location.reload();
+  };
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <div className="h-10 bg-muted rounded animate-pulse mb-4" />
+          <div className="h-6 bg-muted rounded animate-pulse w-1/3" />
+        </div>
+        <ProductsLoading />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -116,11 +137,22 @@ export default function ProductsClient({ products }) {
       {/* Results Summary */}
       <div className="flex items-center justify-between mb-6">
         <p className="text-muted-foreground">
-          Showing {filteredAndSortedProducts.length} of {products.length}{" "}
+          Showing {filteredAndSortedProducts.length} of {products?.length || 0}{" "}
           products
           {selectedCategory !== "all" && ` in ${selectedCategory}`}
           {searchTerm && ` for "${searchTerm}"`}
         </p>
+        
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleRefresh}
+          disabled={isRefreshing}
+          className="gap-2"
+        >
+          <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+          Refresh
+        </Button>
       </div>
 
       {/* Products Grid/List */}
@@ -199,7 +231,7 @@ export default function ProductsClient({ products }) {
 
               <CardFooter className="p-4 pt-0">
                 <Button asChild className="w-full">
-                  <Link href={`/products/${product._id}`}>View Details</Link>
+                  <Link href={`/products/${product.id}`}>View Details</Link>
                 </Button>
               </CardFooter>
             </Card>

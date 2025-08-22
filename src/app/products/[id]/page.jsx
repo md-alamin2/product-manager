@@ -35,7 +35,6 @@ export default async function ProductPage({ params }) {
   const relatedProducts = products
     .filter(p => (p.category === product.data.category) && (p._id !== product.data._id))
     .slice(0, 3);
-    console.log(relatedProducts, "line40")
 
   const features = [
     "High-quality materials",

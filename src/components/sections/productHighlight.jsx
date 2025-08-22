@@ -15,7 +15,6 @@ const getFeaturedProducts = async()=>{
 
 export async function ProductHighlights() {
   const featuredProducts = await getFeaturedProducts();
-  console.log(featuredProducts, "featuredProducts")
 
   return (
     <section className="py-20 bg-muted/30">
