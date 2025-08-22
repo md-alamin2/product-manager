@@ -4,11 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { getFeaturedProducts } from "@/lib/data/products";
+// import { getFeaturedProducts } from "@/lib/data/products";
 import { ArrowRight, Star } from "lucide-react";
 
-export function ProductHighlights() {
-  const featuredProducts = getFeaturedProducts();
+const getFeaturedProducts = async()=>{
+  const res = await fetch("http://localhost:3000/api/products/featured")
+  const data = await res.json();
+  return data;
+}
+
+export async function ProductHighlights() {
+  const featuredProducts = await getFeaturedProducts();
+  console.log(featuredProducts, "featuredProducts")
 
   return (
     <section className="py-20 bg-muted/30">
@@ -29,8 +36,8 @@ export function ProductHighlights() {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {featuredProducts.map((product) => (
-            <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-0 bg-background p-0">
+          {featuredProducts?.map((product) => (
+            <Card key={product._id} className="group hover:shadow-lg transition-all duration-300 border-0 bg-background p-0">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg aspect-video">
                   <Image
