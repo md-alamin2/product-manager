@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 import { Loader2, Mail, Lock } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 
 export default function SigninForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { addToast } = useToast();
 
   const handleSignup = async (e) => {
@@ -18,15 +19,15 @@ export default function SigninForm() {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    const callbackUrl = searchParams.get("callbackUrl") || "/products";
     try {
       const response = await signIn("credentials", {
         email,
         password,
-        callbackUrl: "/products",
         redirect: false,
       });
       if (response.ok) {
-        router.push("/products");
+        router.push(callbackUrl);
         form.reset();
         setIsLoading(false);
         addToast({

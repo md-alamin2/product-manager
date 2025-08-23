@@ -6,11 +6,18 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Package } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { LoadingSpinner } from "../ui/loading";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const {data:session, status} = useSession();
-  console.log(session)
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    router.push("/login");
+  };
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -43,12 +50,16 @@ export function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            {status === "loading" ? null : session?.user ? (
+            {status === "loading" ? (
+              <LoadingSpinner></LoadingSpinner>
+            ) : session?.user ? (
               <div className="flex items-center gap-2">
-              <span className="text-sm font-medium">Hello, {session.user.name}</span>
-              <Link href="/signup">
-                  <Button onClick={() => signOut()} size="sm">Sign Out</Button>
-                </Link>
+                <span className="text-sm font-medium">
+                  Hello, {session.user.name}
+                </span>
+                <Button onClick={handleLogout} size="sm">
+                  Sign Out
+                </Button>
               </div>
             ) : (
               <>
@@ -73,7 +84,10 @@ export function Navbar() {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px] px-2">
+              <SheetContent
+                side="right"
+                className="w-[300px] sm:w-[400px] px-2"
+              >
                 <nav className="flex flex-col gap-4 mt-2">
                   <Link
                     href="/"
@@ -83,7 +97,7 @@ export function Navbar() {
                     <Package className="h-6 w-6 text-primary" />
                     <span className="text-xl font-bold">ProductManager</span>
                   </Link>
-                  
+
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
@@ -94,15 +108,36 @@ export function Navbar() {
                       {item.name}
                     </Link>
                   ))}
-                  
-                  <div className="flex flex-col gap-2 pt-4 border-t">
-                    <Button variant="outline" size="sm" onClick={() => setIsOpen(false)}>
-                      Login
-                    </Button>
-                    <Button size="sm" onClick={() => setIsOpen(false)}>
-                      Sign Up
-                    </Button>
-                  </div>
+
+                  {status === "loading" ? (
+                    <LoadingSpinner></LoadingSpinner>
+                  ) : session?.user ? (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">
+                        Hello, {session.user.name}
+                      </span>
+                      <Button onClick={handleLogout} size="sm">
+                        Sign Out
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-2 pt-4 border-t">
+                      <Link href="/login">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Login
+                        </Button>
+                      </Link>
+                      <Link href="/signup">
+                        <Button size="sm" onClick={() => setIsOpen(false)}>
+                          Sign Up
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                 </nav>
               </SheetContent>
             </Sheet>

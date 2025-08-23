@@ -1,6 +1,7 @@
 import React from "react";
 import SocialLogin from "./components/SocialLogin";
 import SigninForm from "./components/SigninForm";
+import Link from "next/link";
 
 export default function login() {
   return (
@@ -43,7 +44,13 @@ export default function login() {
           {/* Card Footer */}
           <div className="flex items-center p-6 pt-0">
             <div className="text-center text-sm text-gray-500 w-full">
-              Demo credentials: admin@example.com / password
+              Don't have an account?{" "}
+              <Link
+                href="/signup"
+                className="font-bold"
+              >
+                Sign Up
+              </Link>
             </div>
           </div>
         </div>

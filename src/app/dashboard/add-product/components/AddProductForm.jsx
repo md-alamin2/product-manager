@@ -158,7 +158,6 @@ export default function AddProductForm() {
         });
       }
     } catch (error) {
-      console.error('Error:', error);
       addToast({
         type: "error",
         title: "Error",

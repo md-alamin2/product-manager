@@ -1,32 +1,51 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Loader2, Mail, Lock, User } from "lucide-react";
 import { signupUser } from "@/app/actions/auth/signupUser";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/toast";
 
 export default function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { addToast } = useToast();
   const [error, setError] = useState("");
 
-  const handleSignup = async(e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    await signupUser({ name, email, password });
-    // setIsLoading(true);
-
-
-    // Demo simulation - replace with real API call
-    // setTimeout(() => {
-    //   if (formData.name && formData.email && formData.password) {
-    //     alert("Signup successful! You can now login.");
-    //     setFormData({ name: "", email: "", password: "" });
-    //   } else {
-    //     setError("Please fill in all fields.");
-    //   }
-    //   setIsLoading(false);
-    // }, 1500);
+    const minLength = 6;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    if (password.length < minLength) {
+      setIsLoading(false);
+      return setError("Password must be at least 6 characters long.");
+    } else if (!hasUpperCase) {
+      setIsLoading(false);
+      return setError("Password must contain at least one uppercase letter.");
+    } else if (!hasLowerCase) {
+      setIsLoading(false);
+      return setError("Password must contain at least one lowercase letter.");
+    } else {
+      setError("");
+    }
+    const res = await signupUser({ name, email, password });
+    if (res.insertedId) {
+      router.push("/login");
+      form.reset();
+      setIsLoading(false);
+      addToast({
+        type: "success",
+        title: "Success!",
+        message: "User Account created successfully!",
+      });
+    } else {
+      setError(res.error || "Signup failed");
+    }
   };
   return (
     <div className="p-6 pt-0 space-y-4">

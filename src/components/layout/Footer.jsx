@@ -9,7 +9,6 @@ export function Footer() {
       { name: "All Products", href: "/products" },
       { name: "Featured", href: "/products?featured=true" },
       { name: "Categories", href: "/products?categories=all" },
-      { name: "Add Product", href: "/dashboard/add-product" },
     ],
     company: [
       { name: "About", href: "#" },

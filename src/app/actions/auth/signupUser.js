@@ -17,7 +17,6 @@ export const signupUser = async (payload) => {
     result.insertedId = result.insertedId.toString();
     return result;
   } else {
-    alert("User already exists");
     return null;
   }
 };

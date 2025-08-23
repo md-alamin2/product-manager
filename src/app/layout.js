@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "../components/layout/Navbar.jsx";
-import { Footer } from "../components/layout/Footer";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/toast";
 import NextAuthProvider from "@/provider/NextAuthProvider";
 

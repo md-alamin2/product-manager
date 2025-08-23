@@ -2,12 +2,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Star, Users, Package } from "lucide-react";
+import StatCount from "./components/StatCount";
+// import CountUp from "react-countup";
 
 export function Hero() {
   const stats = [
-    { icon: Package, value: "1000+", label: "Products" },
-    { icon: Users, value: "5000+", label: "Happy Customers" },
-    { icon: Star, value: "4.9", label: "Rating" },
+    { icon: Package, value: 1000, label: "Products" },
+    { icon: Users, value: 5000, label: "Happy Customers" },
+    { icon: Star, value: 4.5, label: "Rating" },
   ];
 
   return (
@@ -31,8 +33,9 @@ export function Hero() {
 
           {/* Subtitle */}
           <p className="mt-6 text-lg leading-8 text-muted-foreground max-w-2xl mx-auto">
-            Explore our curated collection of high-quality products. From electronics to home essentials, 
-            find everything you need in one place with our easy-to-use product management system.
+            Explore our curated collection of high-quality products. From
+            electronics to home essentials, find everything you need in one
+            place with our easy-to-use product management system.
           </p>
 
           {/* CTA Buttons */}
@@ -44,9 +47,7 @@ export function Hero() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="text-base px-8">
-              <Link href="/dashboard/add-product">
-                Add Product
-              </Link>
+              <Link href="/dashboard/add-product">Add Product</Link>
             </Button>
           </div>
 
@@ -57,8 +58,11 @@ export function Hero() {
                 <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-3">
                   <stat.icon className="h-6 w-6 text-primary" />
                 </div>
-                <div className="text-3xl font-bold text-foreground">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                {/* <div className="text-3xl font-bold text-foreground">{stat.value}</div> */}
+                <StatCount stats={stat.value} />
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
