@@ -5,9 +5,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Package } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const {data:session, status} = useSession();
+  console.log(session)
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -40,12 +43,25 @@ export function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
-              Login
-            </Button>
-            <Button size="sm">
-              Sign Up
-            </Button>
+            {status === "loading" ? null : session?.user ? (
+              <div className="flex items-center gap-2">
+              <span className="text-sm font-medium">Hello, {session.user.name}</span>
+              <Link href="/signup">
+                  <Button onClick={() => signOut()} size="sm">Sign Out</Button>
+                </Link>
+              </div>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="outline" size="sm">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm">Sign Up</Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu */}

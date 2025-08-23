@@ -1,34 +1,27 @@
-// app/products/page.js (Server Component)
+import ProductsClient from "./components/ProductsClient";
 
-import ProductsClient from './components/ProductsClient';
+export const dynamic = 'force-dynamic';
 
 export const data = async () => {
-  let loading = true;
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: 'force-cache'
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
+    cache:"no-store"
   });
-  
-  if (!res.ok) {
-    throw new Error('Failed to fetch products');
-  }
-  
   const products = await res.json();
-  loading = false;
-  return {products, loading};
+  return { products };
 };
 
 export const getFeaturedProducts = async () => {
-  const {products} = await data();
+  const { products } = await data();
   return products.filter((p) => p.featured);
 };
 
 export const getProductById = async (id) => {
-  const {products} = await data();
-  return products.find((p) => {p._id == id});
+  const { products } = await data();
+  return products.find((p) => p._id == id);
 };
 
 export default async function ProductsPage() {
-  const {products, loading} = await data();
+  const { products } = await data();
 
   return (
     <div className="min-h-screen bg-background">
@@ -48,7 +41,7 @@ export default async function ProductsPage() {
       </div>
 
       {/* Client Component for Interactive Features */}
-      <ProductsClient products={products} isLoading={loading} />
+      <ProductsClient products={products} />
     </div>
   );
 }

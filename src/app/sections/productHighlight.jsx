@@ -1,20 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-// import { getFeaturedProducts } from "@/lib/data/products";
 import { ArrowRight, Star } from "lucide-react";
 
-const getFeaturedProducts = async()=>{
-  const res = await fetch("http://localhost:3000/api/products/featured")
-  const data = await res.json();
-  return data;
-}
-
-export async function ProductHighlights() {
-  const featuredProducts = await getFeaturedProducts();
+export function ProductHighlights({featuredProducts}) {
 
   return (
     <section className="py-20 bg-muted/30">
@@ -80,7 +72,7 @@ export async function ProductHighlights() {
                     ${product.price}
                   </span>
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`/products/${product.id}`}>
+                    <Link href={`/products/${product._id}`}>
                       View Details
                     </Link>
                   </Button>

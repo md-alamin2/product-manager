@@ -22,7 +22,7 @@ import {
 import { Search, Star, RefreshCw } from "lucide-react";
 import { ProductsLoading } from "@/components/ui/loading";
 
-export default function ProductsClient({ products, isLoading }) {
+export default function ProductsClient({ products, isLoading = false }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("name");
@@ -231,7 +231,7 @@ export default function ProductsClient({ products, isLoading }) {
 
               <CardFooter className="p-4 pt-0">
                 <Button asChild className="w-full">
-                  <Link href={`/products/${product.id}`}>View Details</Link>
+                  <Link href={`/products/${product._id}`}>View Details</Link>
                 </Button>
               </CardFooter>
             </Card>
