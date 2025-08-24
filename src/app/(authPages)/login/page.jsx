@@ -5,49 +5,44 @@ import Link from "next/link";
 
 export default function login() {
   return (
-    <div className="flex items-center justify-center bg-gray-50 px-4 py-10">
+    <div className="flex items-center justify-center bg-muted/30 px-4 py-10 ">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         {/* Card */}
-        <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+        <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-muted/30 shadow-sm dark:shadow-lg">
           {/* Card Header */}
           <div className="flex flex-col space-y-1.5 p-6">
-            <h3 className="text-2xl font-semibold leading-none tracking-tight text-center">
+            <h3 className="text-2xl font-semibold leading-none tracking-tight text-center text-gray-900 dark:text-white">
               Welcome back
             </h3>
-            <p className="text-sm text-gray-600 text-center">
+            <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
               Sign in to your account to continue
             </p>
           </div>
-
           {/* Card Content */}
           <div className="p-6 pt-0 space-y-4">
-
             {/* Google Sign In */}
-            <SocialLogin  />
-
+            <SocialLogin />
             {/* Separator */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200"></div>
+                <div className="w-full border-t border-gray-200 dark:border-gray-600"></div>
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-gray-500">
+                <span className="bg-white dark:bg-gray-800 px-2 text-gray-500 dark:text-gray-400">
                   Or continue with
                 </span>
               </div>
             </div>
-
             {/* Credentials Form */}
-            <SigninForm  />
+            <SigninForm />
           </div>
-
           {/* Card Footer */}
           <div className="flex items-center p-6 pt-0">
-            <div className="text-center text-sm text-gray-500 w-full">
+            <div className="text-center text-sm text-gray-500 dark:text-gray-400 w-full">
               Don't have an account?{" "}
               <Link
                 href="/signup"
-                className="font-bold"
+                className="font-medium text-primary hover:text-primary/80 transition-colors"
               >
                 Sign Up
               </Link>

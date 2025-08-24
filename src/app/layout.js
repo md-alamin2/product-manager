@@ -4,7 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/toast";
 import NextAuthProvider from "@/provider/NextAuthProvider";
-
+import { ThemeProvider } from "@/provider/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,17 +15,24 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <NextAuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <ToastProvider>
-            <div className="min-h-screen flex flex-col">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
+            <NextAuthProvider>
+              <div className="min-h-screen flex flex-col">
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+            </NextAuthProvider>
           </ToastProvider>
-        </NextAuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
