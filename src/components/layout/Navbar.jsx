@@ -109,12 +109,12 @@ export function Navbar() {
                     ) : (
                       <>
                         <Link href="/login">
-                          <Button variant="outline" size="sm" onClick={() => setIsOpen(false)}>
+                          <Button variant="outline" size="sm" className="w-full" onClick={() => setIsOpen(false)}>
                             Login
                           </Button>
                         </Link>
                         <Link href="/signup">
-                          <Button size="sm" onClick={() => setIsOpen(false)}>
+                          <Button size="sm" className="w-full" onClick={() => setIsOpen(false)}>
                             Sign Up
                           </Button>
                         </Link>

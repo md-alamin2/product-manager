@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📱 Product Manager
 
-## Getting Started
+A simple product management app built with **Next.js 15 (App Router)**, **NextAuth.js**, **MongoDB (native driver)**, **Tailwind CSS**, and **shadcn/ui**.  
+Includes public and protected pages with authentication and product CRUD.
 
-First, run the development server:
+---
 
+## 🚀 Features
+
+- Public Landing Page: Navbar, Hero, Product Highlights, Footer  
+- Login via NextAuth (Google / Credentials)  
+- Product List & Product Details (public)  
+- Protected Add Product page (requires login)  
+- Data stored in MongoDB (native driver)  
+- Modern UI with Tailwind CSS + shadcn/ui  
+- loading spinner, toast notifications, theme toggle  
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1️⃣ Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/md-alamin2/product-manager.git
+cd product-manager
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ Install Dependencies
+```bash
+npm install
+```
+### 3️⃣ Configure Environment Variables
+```bash
+# MongoDB
+MONGO_URI=your-mongodb-connection-uri
+DB_NAME=your-database-name
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# NextAuth
+NEXTAUTH_SECRET=your-random-secret
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+```
+### 4️⃣ Run the Development Server
+```bash
+npm run dev
+```
+Open http://localhost:3000 in your browser.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛣️ Route Summary
+### 🌐 Public Pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Landing page
+- login — Login page (Google / Credentials)
+- products — Product list
+- products/[id] — Product details
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🔒 Protected Page
 
-## Deploy on Vercel
+- /dashboard/add-product — Add Product form (login required)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ⚡ API Routes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- GET /api/products — Fetch all products
+- POST /api/products — Add product { name, description, price }
+- GET /api/products/[id] — Fetch single product by ID
+---
+
+## 📦 Tech Stack
+
+- Next.js 15 (App Router)
+- NextAuth.js for authentication
+- MongoDB (native driver)
+- Tailwind CSS + shadcn/ui for styling
+- Route Handlers (/api) for backend logic
+---
+
+## 👨‍💻 Developer
+
+**Md. Alamin**  
+Email: [mdalamin22671@gmail.com]()  
+GitHub: [https://github.com/md-alamin2](https://github.com/md-alamin2)
+
+---
+
+## 📎 License
+
+This project is open source and free to use for learning and portfolio purposes.
